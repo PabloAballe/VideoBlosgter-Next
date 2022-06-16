@@ -3,7 +3,13 @@ import PropTypes from "prop-types";
 import { VideoCardStyles } from "./VideoCard.styles";
 import Link from "next/link";
 
-export const VideoCard = ({ id, title, img }) => {
+interface VideoCardProps {
+  id: string;
+  title: string;
+  img: string;
+}
+
+export const VideoCard = ({ id, title, img }: VideoCardProps) => {
   return (
     <VideoCardStyles>
       <Link href={`/video/${id}`}>

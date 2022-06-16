@@ -2,10 +2,15 @@ import React from "react";
 import PropTypes from "prop-types";
 import { useWindowSize } from "../../../utils/useWindowsSize";
 
-export const MainBanner : React.FC= ({ title, img }) => {
+interface MainBannerProps {
+  title: string;
+  img: string;
+}
+
+export const MainBanner = ({ title, img }: MainBannerProps) => {
   const size = useWindowSize();
   return (
-    <div className={`rounded ${size.width < 768 ? '' :'px-32'} py-4`}>
+    <div className={`rounded ${size.width < 768 ? "" : "px-32"} py-4`}>
       <div className="flex flex-wrap md items-center">
         <div className="bg-white w-full md:w-1/2 ">
           <div className="">

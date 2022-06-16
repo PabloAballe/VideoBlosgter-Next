@@ -4,7 +4,19 @@ import { VideoPlayListItemStyles } from "./VideoPlayListItem.styles";
 import Link from "next/link";
 import { useWindowSize } from "../../../utils/useWindowsSize";
 
-export const VideoPlayListItem = ({ id, title, img, active = false }) => {
+interface VideoPlayListItemProps {
+  id: string;
+  title: string;
+  img: string;
+  active: boolean;
+}
+
+export const VideoPlayListItem = ({
+  id,
+  title,
+  img,
+  active = false,
+}: VideoPlayListItemProps) => {
   const size = useWindowSize();
   return (
     <VideoPlayListItemStyles
@@ -14,7 +26,9 @@ export const VideoPlayListItem = ({ id, title, img, active = false }) => {
         <div className="rounded m-auto cursor-pointer hover:transform-gpu hover:scale-110 transition-all">
           <img
             src={img}
-            className={`rounded w-full m-auto ${size.width > 768 ? "img" : "img-mobile"}`}
+            className={`rounded w-full m-auto ${
+              size.width > 768 ? "img" : "img-mobile"
+            }`}
             loading="lazy"
             alt={title}
             title={title}

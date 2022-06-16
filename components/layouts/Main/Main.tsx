@@ -6,7 +6,11 @@ import { NavBar } from "../../common/NavBar/NavBar";
 import { MainStyles } from "./Main.styles";
 import { useWindowSize } from "../../../utils/useWindowsSize";
 
-export const Main = ({ children }) => {
+interface MainProps {
+  children: React.ReactNode;
+}
+
+export const Main = ({ children }: MainProps) => {
   const size = useWindowSize();
   return (
     <MainStyles>

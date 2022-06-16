@@ -9,12 +9,12 @@ import { RWebShare } from "react-web-share";
 import { useWindowSize } from "../../utils/useWindowsSize";
 
 const VideoDetails: NextPage = () => {
-  const router = useRouter();
   const [data, setData] = useState(null);
-  const [isLoading, setLoading] = useState(false);
   const [isDownloading, setDownloading] = useState(false);
-  const [videoData, setVideoData] = useState(null);
+  const [isLoading, setLoading] = useState(false);
   const [isLoadingVideo, setLoadingVideo] = useState(false);
+  const [videoData, setVideoData] = useState(null);
+  const router = useRouter();
   const size = useWindowSize();
   let playList: [] = [];
 
@@ -78,7 +78,7 @@ const VideoDetails: NextPage = () => {
   return (
     <Main>
       <SearchBar />
-      <div className="flex items-center justify-start gap-4 font-bold flex-wrap">
+      <div className="flex justify-start gap-4 font-bold flex-wrap">
         {videoData && (
           <div>
             <ReactPlayer
@@ -109,6 +109,7 @@ const VideoDetails: NextPage = () => {
                 </svg>
               </button>
             </RWebShare>
+
             {!isDownloading ? (
               <button
                 className="btn btn-ghost btn-circle"
@@ -135,9 +136,21 @@ const VideoDetails: NextPage = () => {
             ) : (
               <Spinner />
             )}
+            <p className="text-xl">
+              {videoData.info.title}
+            </p>
+            <p className="text-sm text-slate-500 overflow-hidden max-w-2xl">
+            {videoData.info.description}
+            </p>
           </div>
         )}
-        <div className={size.width > 768 ? "playlist-container": "playlist-container-mobile"} >
+        <div
+          className={
+            size.width > 768
+              ? "playlist-container"
+              : "playlist-container-mobile"
+          }
+        >
           <p>Videos recomendados</p>
           {isLoading ? (
             <Spinner />
