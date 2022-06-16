@@ -59,7 +59,6 @@ const VideoDetails: NextPage = () => {
   useEffect(() => {
     if (videoData) {
       let keywords = keyword_extractor.extract(videoData.info.title);
-      console.log(keywords);
       setLoading(true);
       fetch(
         constants.api.baseUrl +
