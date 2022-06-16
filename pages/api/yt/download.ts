@@ -8,7 +8,7 @@ export default async function handler(
   res.setHeader("Access-Control-Allow-Origin", "*");
   const { id } = req.query;
   if (id) {
-    let info = await ytdl.getInfo(id);
+    let info = await ytdl.getInfo(id as string);
     let audioFormats = ytdl.filterFormats(info.formats, "audioonly");
     let videoFormats = ytdl.filterFormats(info.formats, "video");
     res.status(200).json({

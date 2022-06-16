@@ -9,6 +9,7 @@ export const SearchBar = ({}) => {
   const size = useWindowSize();
 
   return (
+    // @ts-ignore: Object is possibly 'null'.
     <div className={`rounded ${size.width < 768 ? "" : "px-32"} py-4`}>
       <div>
         <label
@@ -35,6 +36,7 @@ export const SearchBar = ({}) => {
             </svg>
           </div>
           <input
+            // @ts-ignore: Object is possibly 'null'.
             ref={input}
             type="search"
             id="default-search"
@@ -43,7 +45,9 @@ export const SearchBar = ({}) => {
             required={true}
           />
           <button
-            onClick={() => router.push("/search?q=" + input.current.value)}
+            onClick={() => router.push("/search?q=" + 
+            // @ts-ignore: Object is possibly 'null'.
+            input.current.value)}
             className="text-white absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
           >
             Buscar
