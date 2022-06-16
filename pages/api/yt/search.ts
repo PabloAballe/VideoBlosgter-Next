@@ -10,7 +10,6 @@ export default async function handler(
   const body = req.body;
   if (q) {
     const videos = await yt.search(q as string);
-    console.log(body)
     res.status(200).json(videos);
   } else {
     res.status(400).json({ error: "No query provided" });

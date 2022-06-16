@@ -1,3 +1,22 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+.active {
+    background-color: #8383836b;
+    border-radius: 5px;
+}
+
+.playlist-container {
+    overflow-y: auto;
+    max-height: 22em;
+    min-width: 25vw;
+}
+
+.playlist-container::-webkit-scrollbar {
+    width: 0.5em;
+}
+
+.playlist-active {
+    background-color: #8383836b;
+    border-radius: 5px;
+}

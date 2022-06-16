@@ -5,6 +5,7 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
+  res.setHeader('Access-Control-Allow-Origin', '*');
   const { id } = req.query;
   if (id) {
     const videos = await yt.search(id as string);

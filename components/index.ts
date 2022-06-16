@@ -10,3 +10,4 @@ export { NavBar } from "./common/NavBar/NavBar";
 export { SearchBar } from "./common/SearchBar/VideoCard";
 export { Spinner } from "./common/Spinner/Spinner";
 export { VideoCard } from "./video/VideCard/VideoCard";
+export { VideoPlayListItem } from "./video/VideoPlayListItem/VideoPlayListItem";
