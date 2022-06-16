@@ -1,10 +1,16 @@
-import React from "react";
+import React, { useRef } from "react";
 import PropTypes from "prop-types";
+import { useRouter } from "next/router";
+import { useWindowSize } from "../../../utils/useWindowsSize";
 
 export const SearchBar = ({}) => {
+  const router = useRouter();
+  const input = useRef();
+  const size = useWindowSize();
+
   return (
-    <div className="rounded   px-32 py-4">
-      <form>
+    <div className={`rounded ${size.width < 768 ? "" : "px-32"} py-4`}>
+      <div>
         <label
           htmlFor="default-search"
           className="mb-2 text-sm font-medium text-gray-900 sr-only "
@@ -29,6 +35,7 @@ export const SearchBar = ({}) => {
             </svg>
           </div>
           <input
+            ref={input}
             type="search"
             id="default-search"
             className="block p-4 pl-10 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 "
@@ -36,13 +43,13 @@ export const SearchBar = ({}) => {
             required=""
           />
           <button
-            type="submit"
+            onClick={() => router.push("/search?q=" + input.current.value)}
             className="text-white absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
           >
             Buscar
           </button>
         </div>
-      </form>
+      </div>
     </div>
   );
 };

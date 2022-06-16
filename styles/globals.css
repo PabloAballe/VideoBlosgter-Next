@@ -8,8 +8,7 @@
 
 .playlist-container {
     overflow-y: auto;
-    max-height: 22em;
-    min-width: 25vw;
+    max-height: 29em;
 }
 
 .playlist-container::-webkit-scrollbar {
@@ -19,4 +18,14 @@
 .playlist-active {
     background-color: #8383836b;
     border-radius: 5px;
+}
+
+.playlist-container-mobile {
+    overflow-y: auto;
+    max-height: 22em;
+    width: 100%;
+}
+
+.playlist-container-mobile::-webkit-scrollbar {
+    width: 0.5em;
 }

@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import * as constants from "../../constants";
 const keyword_extractor = require("keyword-extractor");
 import { RWebShare } from "react-web-share";
+import { useWindowSize } from "../../utils/useWindowsSize";
 
 const VideoDetails: NextPage = () => {
   const router = useRouter();
@@ -14,6 +15,7 @@ const VideoDetails: NextPage = () => {
   const [isDownloading, setDownloading] = useState(false);
   const [videoData, setVideoData] = useState(null);
   const [isLoadingVideo, setLoadingVideo] = useState(false);
+  const size = useWindowSize();
   let playList: [] = [];
 
   function download(url) {
@@ -76,13 +78,15 @@ const VideoDetails: NextPage = () => {
   return (
     <Main>
       <SearchBar />
-      <div className="flex items-center justify-start gap-4 font-bold">
+      <div className="flex items-center justify-start gap-4 font-bold flex-wrap">
         {videoData && (
           <div>
             <ReactPlayer
               url={videoData.video.url}
               controls={true}
               playing={true}
+              width={size.width > 768 ? "60vw" : "100%"}
+              height={size.width > 768 ? "60vh" : "30em"}
             />
             <RWebShare
               data={{
@@ -133,7 +137,8 @@ const VideoDetails: NextPage = () => {
             )}
           </div>
         )}
-        <div className="playlist-container">
+        <div className={size.width > 768 ? "playlist-container": "playlist-container-mobile"} >
+          <p>Videos recomendados</p>
           {isLoading ? (
             <Spinner />
           ) : (

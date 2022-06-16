@@ -9,10 +9,12 @@ import { useEffect, useState } from "react";
 import * as constants from "../../constants";
 import type { NextPage } from "next";
 import { phraseGenerator } from "../../utils";
+import { useWindowSize } from "../../utils/useWindowsSize";
 
 const Discover: NextPage = () => {
   const [data, setData] = useState(null);
   const [isLoading, setLoading] = useState(false);
+  const size = useWindowSize();
 
   useEffect(() => {
     setLoading(true);
@@ -30,7 +32,11 @@ const Discover: NextPage = () => {
     <Main>
       <SearchBar />
       <MainBanner title="Descubrir" img={`/${constants.site.icon}`} />
-      <div className="video-category-container p-4 flex items-center gap-4 justify-start flex-wrap">
+      <div
+        className={`video-category-container p-4 flex items-center gap-4 flex-wrap ${
+          size.width > 768 ? "justify-start" : "justify-center"
+        }`}
+      >
         {isLoading ? (
           <Spinner />
         ) : (

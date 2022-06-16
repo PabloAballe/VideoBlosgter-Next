@@ -4,8 +4,10 @@ import Head from "next/head";
 import * as constants from "../../../constants";
 import { NavBar } from "../../common/NavBar/NavBar";
 import { MainStyles } from "./Main.styles";
+import { useWindowSize } from "../../../utils/useWindowsSize";
 
 export const Main = ({ children }) => {
+  const size = useWindowSize();
   return (
     <MainStyles>
       <div data-theme="light">
@@ -15,11 +17,11 @@ export const Main = ({ children }) => {
           <link rel="icon" href={`/${constants.site.icon}`} />
         </Head>
 
-        <main className="flex justify-start gap-4 p-4">
+        <main
+          className={size.width > 768 ? "flex justify-start gap-4 p-4" : "p-4"}
+        >
           <NavBar />
-          <div className="main-container overflow-y-auto">
-            {children}
-          </div>
+          <div className="main-container overflow-y-auto">{children}</div>
         </main>
       </div>
     </MainStyles>

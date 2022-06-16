@@ -8,10 +8,12 @@ import {
 import { useEffect, useState } from "react";
 import * as constants from "../../constants";
 import type { NextPage } from "next";
+import { useWindowSize } from "../../utils/useWindowsSize";
 
 const Tutorials: NextPage = () => {
   const [data, setData] = useState(null);
   const [isLoading, setLoading] = useState(false);
+  const size = useWindowSize();
 
   useEffect(() => {
     setLoading(true);
@@ -30,7 +32,7 @@ const Tutorials: NextPage = () => {
         title="Tutoriales"
         img={`https://clouddevs.com/3dbay/files/preview/1280x873/11641225776bnaqcerk7hb12vgxvpxmjbv27wxzvqhkia5r2dyjzisonqobo1ebzx4yprnsahhmvjwvaszwzu3bgfdzecy8k23tnbbzcpw23mv7.png`}
       />
-      <div className="video-category-container p-4 flex items-center gap-4 justify-start flex-wrap">
+      <div className={`video-category-container p-4 flex items-center gap-4 flex-wrap ${size.width > 768 ? 'justify-start': "justify-center"}`}>
         {isLoading ? (
           <Spinner />
         ) : (

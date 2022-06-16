@@ -6,9 +6,14 @@
 import styled from "styled-components";
 
 export const VideoPlayListItemStyles = styled.div`
-* img{
+* .img {
     width: 10em;
     height: 5em;
 }
+
+* .img-mobile {
+    width: 100vw;
+    height: 20em;
 }
+
 `;
