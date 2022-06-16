@@ -16,6 +16,10 @@ export const NavBar = () => {
   if (size?.width < 768) {
     return (
       <NavBarStyles className="sticky top-0 z-50">
+        <link
+          rel="stylesheet"
+          href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css"
+        />
         <div className="navbar bg-base-100 ">
           <div className="navbar-start">
             <div className="dropdown">
@@ -23,7 +27,7 @@ export const NavBar = () => {
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-5 w-5"
-                  fill="none"
+                  fill="grey"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
                 >
@@ -122,7 +126,7 @@ export const NavBar = () => {
                       } flex flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800`}
                     >
                       <span className="inline-flex items-center justify-center h-12 w-12 text-lg text-gray-400">
-                        <i className="bx bx-video-recording"></i>
+                        <i className="bx bx-game"></i>
                       </span>
                       <span className="text-sm font-medium">GamePlays</span>
                     </a>
@@ -261,7 +265,7 @@ export const NavBar = () => {
                     } flex flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800`}
                   >
                     <span className="inline-flex items-center justify-center h-12 w-12 text-lg text-gray-400">
-                      <i className="bx bx-video-recording"></i>
+                      <i className="bx bx-game"></i>
                     </span>
                     <span className="text-sm font-medium">GamePlays</span>
                   </a>
