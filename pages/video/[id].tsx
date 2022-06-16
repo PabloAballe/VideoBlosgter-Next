@@ -84,6 +84,24 @@ const VideoDetails: NextPage = () => {
       <div className="flex justify-start gap-4 font-bold flex-wrap">
         {videoData && (
           <div>
+            <button
+              className="btn btn-ghost btn-circle"
+              onClick={() => router.back()}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="25"
+                height="25"
+                fill={constants.colors.primary}
+                className="bi bi-box-arrow-down"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"
+                />
+              </svg>
+            </button>
             <ReactPlayer
               url={videoData.video.url}
               controls={true}

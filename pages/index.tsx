@@ -23,7 +23,7 @@ const Home: NextPage = () => {
     <Main>
       <SearchBar />
       <MainBanner
-        title="Video Blogster Werbsite"
+        title="Video Blogster Website"
         img={`/${constants.site.icon}`}
       />
       <div className={`video-category-container p-4 flex items-center gap-4 flex-wrap ${size.width > 768 ? 'justify-start': "justify-center"}`}>
