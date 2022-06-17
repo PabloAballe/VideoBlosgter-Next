@@ -1,14 +1,25 @@
-import { Main, SearchBar, Spinner, VideoPlayListItem } from "../../components";
-import { useRouter } from "next/router";
-import ReactPlayer from "react-player";
-import type { NextPage } from "next";
-import { useEffect, useRef, useState } from "react";
-import * as constants from "../../constants";
 const keyword_extractor = require("keyword-extractor");
-import { RWebShare } from "react-web-share";
-import { useWindowSize } from "../../utils/useWindowsSize";
-import Plyr from "plyr";
 import "plyr/dist/plyr.css";
+import { auth, db } from "../../utils/firebase";
+import { Main, SearchBar, Spinner, VideoPlayListItem } from "../../components";
+import { RWebShare } from "react-web-share";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { useEffect, useRef, useState } from "react";
+import { useRouter } from "next/router";
+import { useWindowSize } from "../../utils/useWindowsSize";
+
+import { ToastContainer, toast } from "react-toastify";
+import * as constants from "../../constants";
+import Plyr from "plyr";
+import {
+  getFirestore,
+  query,
+  getDocs,
+  collection,
+  where,
+  addDoc,
+} from "firebase/firestore";
+import type { NextPage } from "next";
 
 const VideoDetails: NextPage = () => {
   const [data, setData] = useState(null);
@@ -16,6 +27,8 @@ const VideoDetails: NextPage = () => {
   const [isLoading, setLoading] = useState(false);
   const [isLoadingVideo, setLoadingVideo] = useState(false);
   const [videoData, setVideoData] = useState(null);
+  const [videoSaved, setVideoSaved] = useState(false);
+  const [user, loading, error] = useAuthState(auth);
   const router = useRouter();
   const size = useWindowSize();
   const playerRef = useRef();
@@ -62,25 +75,80 @@ const VideoDetails: NextPage = () => {
           setVideoData(data);
           setLoadingVideo(false);
           const player = new Plyr("#player", {
-            title: data.info.title,
             autoplay: true,
-            sources: [
-              {
-                src: data.video.url,
-                type: "video/mp4",
-                size: 720,
-              },
-            ],
+
             previewThumbnails: {
-              show: true,
               src: data.info.thumbnails.url,
             },
           });
-          
-         playerRef.current?.load()
-         playerRef.current?.play()
+          // @ts-ignore: Object is possibly 'null'.
+          playerRef.current?.load();
+          // @ts-ignore: Object is possibly 'null'.
+          playerRef.current?.play();
         });
   }, [router.query.id]);
+
+  const deleteVideoFromSaved = async () => {
+    if (user) {
+      const q = query(
+        collection(db, "savedVideos"),
+        where("videoId", "==", videoData?.info.videoId)
+      );
+      const querySnapshot = await getDocs(q);
+
+      await querySnapshot.forEach((doc) => {
+        // doc.get().then((doc) => {
+        //   doc.delete();
+        // })
+        console.log(doc.ref);
+      });
+
+      toast.warn("Tu video se ha quitado de guardados", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
+  };
+
+  const saveVideo = async () => {
+    if (videoData) {
+      await addDoc(collection(db, "savedVideos"), {
+        ...videoData,
+        videoId: videoData.info.videoId,
+        user: user?.uid,
+      });
+      setVideoSaved(true);
+      toast.success("Tu video se ha guardado", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
+  };
+
+  useEffect(() => {
+    if (videoData) {
+      const fetchVideo = async () => {
+        const q = query(
+          collection(db, "savedVideos"),
+          where("videoId", "==", videoData?.info.videoId)
+        );
+        const docs = await getDocs(q);
+        if (docs && docs.docs.length > 0) setVideoSaved(true);
+      };
+
+      fetchVideo();
+    }
+  }, [videoData]);
 
   useEffect(() => {
     if (videoData) {
@@ -160,7 +228,38 @@ const VideoDetails: NextPage = () => {
                 </svg>
               </button>
             </RWebShare>
-
+            {user &&
+              (videoSaved ? (
+                <button
+                  className="btn btn-ghost btn-circle"
+                  onClick={() => deleteVideoFromSaved()}
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="25"
+                    height="25"
+                    fill="grey"
+                  >
+                    <path d="M4 8H2v12a2 2 0 0 0 2 2h12v-2H4z"></path>
+                    <path d="M20 2H8a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2zm-9 12V6l7 4z"></path>
+                  </svg>
+                </button>
+              ) : (
+                <button
+                  className="btn btn-ghost btn-circle"
+                  onClick={() => saveVideo()}
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="25"
+                    height="25"
+                    fill={constants.colors.primary}
+                  >
+                    <path d="M4 8H2v12a2 2 0 0 0 2 2h12v-2H4z"></path>
+                    <path d="M20 2H8a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2zm-9 12V6l7 4z"></path>
+                  </svg>
+                </button>
+              ))}
             {!isDownloading && videoData.video.url ? (
               <>
                 <button

@@ -3,15 +3,22 @@ import { useRouter } from "next/router";
 import * as constants from "../../../constants";
 import Link from "next/link";
 import { useWindowSize } from "../../../utils/useWindowsSize";
+import { auth, logout, signInWithGoogle } from "../../../utils/firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
 import { useEffect } from "react";
 
 export const NavBar = () => {
   const router = useRouter();
   const size = useWindowSize();
+  const [user, loading, error] = useAuthState(auth);
+  const logoutApp = () => {
+    logout();
+    router.push("/");
+  };
 
   // useEffect(() => {
-  //   console.log(size.width < 768);
-  // }, [size.width]);
+  //   console.log(user);
+  // }, [user]);
 
   if (size?.width < 768) {
     return (
@@ -145,6 +152,56 @@ export const NavBar = () => {
                     <span className="text-sm font-medium">Descubrir</span>
                   </a>
                 </li>
+                {user ? (
+                  <div>
+                    <div className="divider"></div>
+                    <li>
+                      <a
+                        href="#"
+                        className={`${
+                          router.pathname == "/discover" ? "active" : ""
+                        } flex flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800`}
+                      >
+                        <span className="inline-flex items-center justify-center h-12 w-12 text-lg text-gray-400">
+                          <i className="bx bxs-hot"></i>
+                        </span>
+                        <span className="text-sm font-medium">Nombre</span>
+                      </a>
+                    </li>
+                    <li onClick={logoutApp}>
+                      <a
+                        href="#"
+                        className={`${
+                          router.pathname == "/discover" ? "active" : ""
+                        } flex flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800`}
+                      >
+                        <span className="inline-flex items-center justify-center h-12 w-12 text-lg text-gray-400">
+                          <i className="bx bx-exit"></i>
+                        </span>
+                        <span className="text-sm font-medium">Salir</span>
+                      </a>
+                    </li>
+                  </div>
+                ) : (
+                  <div>
+                    <div className="divider"></div>
+                    <li onClick={signInWithGoogle}>
+                      <a
+                        href="#"
+                        className={`${
+                          router.pathname == "/discover" ? "active" : ""
+                        } flex flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800`}
+                      >
+                        <span className="inline-flex items-center justify-center h-12 w-12 text-lg text-gray-400">
+                          <i className="bx bx-log-in"></i>
+                        </span>
+                        <span className="text-sm font-medium">
+                          Iniciar sesión
+                        </span>
+                      </a>
+                    </li>
+                  </div>
+                )}
               </ul>
             </div>
           </div>
@@ -284,6 +341,79 @@ export const NavBar = () => {
                   <span className="text-sm font-medium">Descubrir</span>
                 </a>
               </li>
+              {user ? (
+                <div>
+                  <div className="divider"></div>
+                  <li>
+                    <a
+                      href="#"
+                      className={`${
+                        router.pathname == "/discover" ? "active" : ""
+                      } flex flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800`}
+                    >
+                      <span className="inline-flex items-center justify-center h-12 w-12 text-lg text-gray-400">
+                        <div className="avatar online">
+                          <div className="w-8 rounded-full">
+                            <img src={user.photoURL} />
+                          </div>
+                        </div>
+                      </span>
+                      <span className="text-sm font-medium">
+                        {user.displayName}
+                      </span>
+                    </a>
+                  </li>
+                  <li>
+                  <Link href="/saved_videos">
+                    <a
+                      href="#"
+                      className={`${
+                        router.pathname == "/saved_videos" ? "active" : ""
+                      } flex flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800`}
+                    >
+                      <span className="inline-flex items-center justify-center h-12 w-12 text-lg text-gray-400">
+                        <i className="bx bxs-videos"></i>
+                      </span>
+                      <span className="text-sm font-medium">
+                        Videos Guardados
+                      </span>
+                    </a>
+                    </Link>
+                  </li>
+                  <li onClick={logoutApp}>
+                    <a
+                      href="#"
+                      className={`${
+                        router.pathname == "/discover" ? "active" : ""
+                      } flex flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800`}
+                    >
+                      <span className="inline-flex items-center justify-center h-12 w-12 text-lg text-gray-400">
+                        <i className="bx bx-exit"></i>
+                      </span>
+                      <span className="text-sm font-medium">Salir</span>
+                    </a>
+                  </li>
+                </div>
+              ) : (
+                <div>
+                  <div className="divider"></div>
+                  <li onClick={signInWithGoogle}>
+                    <a
+                      href="#"
+                      className={`${
+                        router.pathname == "/discover" ? "active" : ""
+                      } flex flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800`}
+                    >
+                      <span className="inline-flex items-center justify-center h-12 w-12 text-lg text-gray-400">
+                        <i className="bx bx-log-in"></i>
+                      </span>
+                      <span className="text-sm font-medium">
+                        Iniciar sesión
+                      </span>
+                    </a>
+                  </li>
+                </div>
+              )}
               {/* <li>
               <a
                 href="#"
