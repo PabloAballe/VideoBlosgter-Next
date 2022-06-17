@@ -12,8 +12,8 @@ export const VideoPlayListItemStyles = styled.div`
 }
 
 * .img-mobile {
-    width: 100vw;
-    height: 20em;
+    width: 70vw;
+    height: 10em;
 }
 
 `;

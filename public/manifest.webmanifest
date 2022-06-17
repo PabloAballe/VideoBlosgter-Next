@@ -3,12 +3,11 @@
     "background_color": "#CFD2FC",
     "display": "browser",
     "scope": "/",
-    "start_url": "https://www.videoblogster.com/",
+    "start_url": "/",
     "name": "Video Blosgter Website",
     "short_name": "VBlogster",
     "description": "Sitio de videos para acceder a contenido sin l\u00edmites",
-    "icons": [
-        {
+    "icons": [{
             "src": "/icon-192x192.png",
             "sizes": "192x192",
             "type": "image/png"

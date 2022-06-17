@@ -2,11 +2,13 @@ import { Main, SearchBar, Spinner, VideoPlayListItem } from "../../components";
 import { useRouter } from "next/router";
 import ReactPlayer from "react-player";
 import type { NextPage } from "next";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import * as constants from "../../constants";
 const keyword_extractor = require("keyword-extractor");
 import { RWebShare } from "react-web-share";
 import { useWindowSize } from "../../utils/useWindowsSize";
+import Plyr from "plyr";
+import "plyr/dist/plyr.css";
 
 const VideoDetails: NextPage = () => {
   const [data, setData] = useState(null);
@@ -16,6 +18,7 @@ const VideoDetails: NextPage = () => {
   const [videoData, setVideoData] = useState(null);
   const router = useRouter();
   const size = useWindowSize();
+  const playerRef = useRef();
   let playList: [] = [];
 
   function download(url) {
@@ -48,16 +51,35 @@ const VideoDetails: NextPage = () => {
 
   useEffect(() => {
     setLoading(true);
-    fetch(
-      constants.api.baseUrl +
-        constants.api.ytDownload +
-        `?id=${router.query.id}`
-    )
-      .then((res) => res.json())
-      .then(async (data) => {
-        setVideoData(data);
-        setLoadingVideo(false);
-      });
+    if (router.query.id)
+      fetch(
+        constants.api.baseUrl +
+          constants.api.ytDownload +
+          `?id=${router.query.id}`
+      )
+        .then((res) => res.json())
+        .then(async (data) => {
+          setVideoData(data);
+          setLoadingVideo(false);
+          const player = new Plyr("#player", {
+            title: data.info.title,
+            autoplay: true,
+            sources: [
+              {
+                src: data.video.url,
+                type: "video/mp4",
+                size: 720,
+              },
+            ],
+            previewThumbnails: {
+              show: true,
+              src: data.info.thumbnails.url,
+            },
+          });
+          
+         playerRef.current?.load()
+         playerRef.current?.play()
+        });
   }, [router.query.id]);
 
   useEffect(() => {
@@ -83,7 +105,7 @@ const VideoDetails: NextPage = () => {
       <SearchBar />
       <div className="flex justify-start gap-4 font-bold flex-wrap">
         {videoData && (
-          <div>
+          <div className="player">
             <button
               className="btn btn-ghost btn-circle"
               onClick={() => router.back()}
@@ -97,18 +119,27 @@ const VideoDetails: NextPage = () => {
                 viewBox="0 0 16 16"
               >
                 <path
-                  fill-rule="evenodd"
+                  fillRule="evenodd"
                   d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"
                 />
               </svg>
             </button>
-            <ReactPlayer
+            {/* <ReactPlayer
               url={videoData.video.url}
               controls={true}
               playing={true}
               width={size.width > 768 ? "60vw" : "100%"}
               height={size.width > 768 ? "60vh" : "30em"}
-            />
+            /> */}
+            <video
+              ref={playerRef}
+              id="player"
+              playsInline={true}
+              controls
+              data-poster={videoData.info.thumbnails.url}
+            >
+              <source src={videoData.video.url} type="video/mp4" />
+            </video>
             <RWebShare
               data={{
                 text: videoData.info.title,
@@ -130,7 +161,7 @@ const VideoDetails: NextPage = () => {
               </button>
             </RWebShare>
 
-            {!isDownloading ? (
+            {!isDownloading && videoData.video.url ? (
               <>
                 <button
                   className="btn btn-ghost btn-circle"

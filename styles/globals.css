@@ -1,6 +1,26 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+:root {
+    --plyr-color-main: #5153ff;
+}
+
+video,
+.plyr--video,
+.player {
+    min-width: 50vw;
+    min-height: 50vh;
+}
+
+@media (min-width: 768px) {
+    video,
+    .plyr--video,
+    .player {
+        max-width: 60vw;
+        max-height: 60vh;
+    }
+}
+
 .active {
     background-color: #8383836b;
     border-radius: 5px;
