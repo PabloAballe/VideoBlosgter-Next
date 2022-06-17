@@ -18,6 +18,7 @@ import {
   collection,
   where,
   addDoc,
+  deleteDoc,
 } from "firebase/firestore";
 import type { NextPage } from "next";
 
@@ -95,14 +96,9 @@ const VideoDetails: NextPage = () => {
         where("videoId", "==", videoData?.info.videoId)
       );
       const querySnapshot = await getDocs(q);
+      deleteDoc(querySnapshot.docs[0].ref);
 
-      await querySnapshot.forEach((doc) => {
-        // doc.get().then((doc) => {
-        //   doc.delete();
-        // })
-        console.log(doc.ref);
-      });
-
+      setVideoSaved(false);
       toast.warn("Tu video se ha quitado de guardados", {
         position: "top-right",
         autoClose: 5000,
@@ -152,13 +148,13 @@ const VideoDetails: NextPage = () => {
 
   useEffect(() => {
     if (videoData) {
-      //let keywords = keyword_extractor.extract(videoData.info.title);
+      let keywords = keyword_extractor.extract(videoData.info.title);
       setLoading(true);
       fetch(
         constants.api.baseUrl +
           constants.api.ytSearch +
           `?q="${
-            videoData.info.keywords[0] + " " + videoData.info.keywords[1]
+            keywords[0]  + " " +  keywords[1]
           }"`
       )
         .then((res) => res.json())

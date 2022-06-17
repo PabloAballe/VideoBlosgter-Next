@@ -17,12 +17,12 @@ export const SearchBarItem = ({ id, title, img }: SearchBarItemProps) => {
 
   return (
     // @ts-ignore: Object is possibly 'null'.
-    <div className={`rounded ${size.width < 768 ? "" : "px-32"}`}>
+    <div className={`rounded w-96 ${size.width < 768 ? "" : ""}`}>
       <Link href={`/video/${id}`}>
-        <div className="rounded cursor-pointer hover:transform-gpu hover:scale-110 transition-all flex items-center justify-around bg-white glass  p-4  my-4 gap-4">
+        <div className="rounded-xl cursor-pointer hover:transform-gpu hover:scale-110 transition-all flex items-center justify-between bg-white glass  p-4  my-4 gap-4">
           <img
             src={img}
-            className="w-24 rounded"
+            className="w-24 h-16 rounded"
             loading="lazy"
             alt={title}
             title={title}

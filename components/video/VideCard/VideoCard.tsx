@@ -13,10 +13,10 @@ export const VideoCard = ({ id, title, img }: VideoCardProps) => {
   return (
     <VideoCardStyles>
       <Link href={`/video/${id}`}>
-        <div className="rounded cursor-pointer hover:transform-gpu hover:scale-110 transition-all">
+        <div className="rounded-2xl cursor-pointer hover:transform-gpu hover:scale-110 transition-all">
           <img
             src={img}
-            className="w-80 h-52 rounded"
+            className="w-80 h-52 rounded-xl"
             loading="lazy"
             alt={title}
             title={title}
