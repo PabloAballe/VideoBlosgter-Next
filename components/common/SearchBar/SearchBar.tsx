@@ -17,7 +17,7 @@ export const SearchBar = ({}) => {
 
   return (
     <div className="search-container">
-      <div className={`rounded ${size.width < 768 ? "" : "px-32"} py-4`}>
+      <div className={`rounded ${size.width < 768 ? "" : "px-56"}`}>
         <div>
           <label
             htmlFor="default-search"
