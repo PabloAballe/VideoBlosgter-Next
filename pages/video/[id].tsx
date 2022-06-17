@@ -152,12 +152,14 @@ const VideoDetails: NextPage = () => {
 
   useEffect(() => {
     if (videoData) {
-      let keywords = keyword_extractor.extract(videoData.info.title);
+      //let keywords = keyword_extractor.extract(videoData.info.title);
       setLoading(true);
       fetch(
         constants.api.baseUrl +
           constants.api.ytSearch +
-          `?q="${keywords[0] + " " + keywords[1]}"`
+          `?q="${
+            videoData.info.keywords[0] + " " + videoData.info.keywords[1]
+          }"`
       )
         .then((res) => res.json())
         .then(async (data) => {

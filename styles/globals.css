@@ -31,8 +31,8 @@ video,
     max-height: 29em;
 }
 
-.playlist-container::-webkit-scrollbar {
-    width: 0.5em;
+*::-webkit-scrollbar {
+    width: 0.1px;
 }
 
 .playlist-active {

@@ -27,7 +27,7 @@ export const NavBar = () => {
           rel="stylesheet"
           href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css"
         />
-        <div className="navbar bg-base-100 ">
+        <div className="navbar bg-base-100">
           <div className="navbar-start">
             <div className="dropdown">
               <label tabIndex={0} className="btn btn-ghost btn-circle">
@@ -48,7 +48,7 @@ export const NavBar = () => {
               </label>
               <ul
                 tabIndex={0}
-                className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
+                className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52 "
               >
                 <li>
                   <Link href="/">
@@ -163,10 +163,33 @@ export const NavBar = () => {
                         } flex flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800`}
                       >
                         <span className="inline-flex items-center justify-center h-12 w-12 text-lg text-gray-400">
-                          <i className="bx bxs-hot"></i>
+                          <div className="avatar online">
+                            <div className="w-8 rounded-full">
+                              <img src={user.photoURL} />
+                            </div>
+                          </div>
                         </span>
-                        <span className="text-sm font-medium">Nombre</span>
+                        <span className="text-sm font-medium">
+                          {user.displayName}
+                        </span>
                       </a>
+                    </li>
+                    <li>
+                      <Link href="/saved_videos">
+                        <a
+                          href="#"
+                          className={`${
+                            router.pathname == "/saved_videos" ? "active" : ""
+                          } flex flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800`}
+                        >
+                          <span className="inline-flex items-center justify-center h-12 w-12 text-lg text-gray-400">
+                            <i className="bx bxs-videos"></i>
+                          </span>
+                          <span className="text-sm font-medium">
+                            Videos Guardados
+                          </span>
+                        </a>
+                      </Link>
                     </li>
                     <li onClick={logoutApp}>
                       <a
@@ -364,20 +387,20 @@ export const NavBar = () => {
                     </a>
                   </li>
                   <li>
-                  <Link href="/saved_videos">
-                    <a
-                      href="#"
-                      className={`${
-                        router.pathname == "/saved_videos" ? "active" : ""
-                      } flex flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800`}
-                    >
-                      <span className="inline-flex items-center justify-center h-12 w-12 text-lg text-gray-400">
-                        <i className="bx bxs-videos"></i>
-                      </span>
-                      <span className="text-sm font-medium">
-                        Videos Guardados
-                      </span>
-                    </a>
+                    <Link href="/saved_videos">
+                      <a
+                        href="#"
+                        className={`${
+                          router.pathname == "/saved_videos" ? "active" : ""
+                        } flex flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-gray-500 hover:text-gray-800`}
+                      >
+                        <span className="inline-flex items-center justify-center h-12 w-12 text-lg text-gray-400">
+                          <i className="bx bxs-videos"></i>
+                        </span>
+                        <span className="text-sm font-medium">
+                          Videos Guardados
+                        </span>
+                      </a>
                     </Link>
                   </li>
                   <li onClick={logoutApp}>

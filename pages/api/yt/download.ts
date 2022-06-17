@@ -10,7 +10,7 @@ export default async function handler(
   if (id) {
     let info = await ytdl.getInfo(id as string);
     let audioFormats = ytdl.filterFormats(info.formats, "audioonly");
-    let videoFormats = ytdl.filterFormats(info.formats, "video");
+    let videoFormats = ytdl.filterFormats(info.formats, "videoandaudio");
     res.status(200).json({
       info: info.videoDetails,
       video: videoFormats[0],
