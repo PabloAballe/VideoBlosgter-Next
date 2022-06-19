@@ -16,6 +16,7 @@ import {
   collection,
   where,
   addDoc,
+  orderBy,
 } from "firebase/firestore";
 
 import { auth, db } from "../../utils/firebase";
@@ -35,6 +36,7 @@ const SavedVideos: NextPage = () => {
         const q = query(
           collection(db, "savedVideos"),
           where("user", "==", user.uid)
+          , orderBy("date_added", "desc")
         );
         const querySnapshot = await getDocs(q);
 
@@ -45,6 +47,7 @@ const SavedVideos: NextPage = () => {
             ...doc.data(),
           });
         });
+        
         setData(data);
         console.log(data);
         setLoading(false);

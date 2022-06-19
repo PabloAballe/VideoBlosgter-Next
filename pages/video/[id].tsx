@@ -62,7 +62,7 @@ const VideoDetails: NextPage = () => {
           draggable: true,
           progress: undefined,
         });
-        console.log(error)
+        console.log(error);
       };
       xhr.send();
     } catch (error) {
@@ -126,6 +126,7 @@ const VideoDetails: NextPage = () => {
         ...videoData,
         videoId: videoData.info.videoId,
         user: user?.uid,
+        date_added: new Date(),
       });
       setVideoSaved(true);
       toast.success("Tu video se ha guardado", {
@@ -149,6 +150,7 @@ const VideoDetails: NextPage = () => {
         );
         const docs = await getDocs(q);
         if (docs && docs.docs.length > 0) setVideoSaved(true);
+        else setVideoSaved(false);
       };
 
       fetchVideo();
@@ -162,9 +164,7 @@ const VideoDetails: NextPage = () => {
       fetch(
         constants.api.baseUrl +
           constants.api.ytSearch +
-          `?q="${
-            keywords[0]  + " " +  keywords[1]
-          }"`
+          `?q="${keywords[0] + " " + keywords[1]}"`
       )
         .then((res) => res.json())
         .then(async (data) => {
