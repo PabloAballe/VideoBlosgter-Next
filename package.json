@@ -28,6 +28,7 @@
         "styled-components": "^5.3.5",
         "youtube-captions-scraper": "^2.0.0",
         "youtube-ext": "^1.0.11",
+        "youtube-search-without-api-key": "^1.0.7",
         "youtube-suggest": "^1.2.0",
         "yt-trending-scraper": "^2.0.1",
         "ytdl-core": "^4.11.0",
