@@ -35,8 +35,8 @@ const SavedVideos: NextPage = () => {
       const fetchVideo = async () => {
         const q = query(
           collection(db, "savedVideos"),
-          where("user", "==", user.uid)
-          , orderBy("date_added", "desc")
+          where("user", "==", user.uid),
+          orderBy("date_added", "desc")
         );
         const querySnapshot = await getDocs(q);
 
@@ -47,7 +47,7 @@ const SavedVideos: NextPage = () => {
             ...doc.data(),
           });
         });
-        
+
         setData(data);
         console.log(data);
         setLoading(false);
@@ -70,10 +70,10 @@ const SavedVideos: NextPage = () => {
         ) : data?.length > 0 ? (
           data?.map((item, _index) => (
             <VideoCard
-              id={item.info.videoId}
-              title={item.info.title}
-              img={item.info.thumbnails[0].url}
-              key={item.info.videoId}
+              id={item.id}
+              title={item.title}
+              img={item.thumbnail}
+              key={item.id}
             />
           ))
         ) : (

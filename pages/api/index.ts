@@ -1,4 +1,3 @@
-import * as yt from "youtube-search-without-api-key";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 export default async function handler(

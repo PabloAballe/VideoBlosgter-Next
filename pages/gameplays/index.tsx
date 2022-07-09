@@ -17,7 +17,7 @@ const GamePlays: NextPage = () => {
 
   useEffect(() => {
     setLoading(true);
-    fetch(constants.api.baseUrl + constants.api.ytSearch + `?q="gameplays"`)
+    fetch(constants.api.baseUrl + constants.api.ytSearch + `?q="gameplays"&lang=es`)
       .then((res) => res.json())
       .then((data) => {
         setData(data);
@@ -32,16 +32,20 @@ const GamePlays: NextPage = () => {
         title="GamePlays"
         img={`https://clouddevs.com/3dbay/files/preview/1280x896/11641583027jx4qreltxbznfh3zcpuj6kcnx4fiwnrlak1gvikkjsutlyls1jneepsqed71m8kvy3uuxjg5gllgoy9ffadjrnhzfjrnfcsbrhhg.png`}
       />
-      <div className={`video-category-container p-4 flex items-center gap-4 flex-wrap ${size.width > 768 ? 'justify-start': "justify-center"}`}>
+      <div
+        className={`video-category-container p-4 flex items-center gap-4 flex-wrap ${
+          size.width > 768 ? "justify-start" : "justify-center"
+        }`}
+      >
         {isLoading ? (
           <Spinner />
         ) : (
           data?.map((item, _index) => (
             <VideoCard
-              id={item.id.videoId}
+              id={item.id}
               title={item.title}
-              img={item.snippet.thumbnails.url}
-              key={item.id.videoId}
+              img={item.thumbnail}
+              key={item.id}
             />
           ))
         )}

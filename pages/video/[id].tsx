@@ -311,10 +311,10 @@ const VideoDetails: NextPage = () => {
           ) : (
             data?.map((item, _index) => (
               <VideoPlayListItem
-                id={item.id.videoId}
+                id={item.id}
                 title={item.title}
-                img={item.snippet.thumbnails.url}
-                key={item.id.videoId}
+                img={item.thumbnail}
+                key={item.id}
                 active={router.query.id === item.id.videoId}
               />
             ))

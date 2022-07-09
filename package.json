@@ -13,6 +13,7 @@
         "@fortawesome/free-regular-svg-icons": "^6.1.1",
         "@fortawesome/free-solid-svg-icons": "^6.1.1",
         "@fortawesome/react-fontawesome": "^0.1.18",
+        "@freetube/yt-comment-scraper": "^6.1.0",
         "daisyui": "^2.15.4",
         "firebase": "^9.8.3",
         "keyword-extractor": "^0.0.22",
@@ -25,8 +26,12 @@
         "react-toastify": "^9.0.4",
         "react-web-share": "^1.1.6",
         "styled-components": "^5.3.5",
-        "youtube-search-without-api-key": "^1.0.7",
-        "ytdl-core": "^4.11.0"
+        "youtube-captions-scraper": "^2.0.0",
+        "youtube-ext": "^1.0.11",
+        "youtube-suggest": "^1.2.0",
+        "yt-trending-scraper": "^2.0.1",
+        "ytdl-core": "^4.11.0",
+        "ytubes": "^1.2.0"
     },
     "devDependencies": {
         "@types/node": "17.0.44",

@@ -37,10 +37,11 @@ const Home: NextPage = () => {
 
   useEffect(() => {
     setLoading(true);
-    fetch(constants.api.baseUrl + constants.api.ytSearch + `?q="VBlog"`)
+    fetch(constants.api.baseUrl + constants.api.ytTrending + `?location=ES`)
       .then((res) => res.json())
       .then((data) => {
-        setData(data);
+        // limit the lengt of the data to 100
+        setData(data.slice(0, 100));
         setLoading(false);
       });
   }, []);
@@ -62,10 +63,14 @@ const Home: NextPage = () => {
         ) : (
           data?.map((item, _index) => (
             <VideoCard
-              id={item.id.videoId}
+              id={item.videoId}
               title={item.title}
-              img={item.snippet.thumbnails.url}
-              key={item.id.videoId}
+              img={
+                item.videoThumbnails.filter(
+                  (tum) => tum.quality === "sddefault"
+                )[0].url
+              }
+              key={item.videoId}
             />
           ))
         )}
