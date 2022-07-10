@@ -11,7 +11,7 @@ export default async function handler(
   const { text, to } = req.query;
   try {
     if (text && to && text.length < wordsLength) {
-      const response = await translate(text.toString(), { to: langu });
+      const response = await translate(text.toString(), { to: to.toString() });
       res.status(200).json(response);
     } else {
       if (text.length > wordsLength)
