@@ -8,11 +8,9 @@ export default async function handler(
   res: NextApiResponse
 ) {
   res.setHeader("Access-Control-Allow-Origin", "*");
-  const { text, to, lang } = req.query;
+  const { text, to } = req.query;
   try {
     if (text && to && text.length < wordsLength) {
-      let langu = "en";
-      if (lang) langu = lang.toString();
       const response = await translate(text.toString(), { to: langu });
       res.status(200).json(response);
     } else {
