@@ -5,8 +5,8 @@
  */
 
 export const api = {
-  baseUrl: "https://video-blosgter.vercel.app",
-  baseUrl_: "http://localhost:3000",
+  baseUrl_: "https://video-blosgter.vercel.app",
+  baseUrl: "http://localhost:3000",
   ytSearch: "/api/yt/search-video",
   ytVideo: "/api/yt",
   ytDownload: "/api/yt/download",
