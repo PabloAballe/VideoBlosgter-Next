@@ -70,10 +70,10 @@ const SavedVideos: NextPage = () => {
         ) : data?.length > 0 ? (
           data?.map((item, _index) => (
             <VideoCard
-              id={item.id}
-              title={item.title}
-              img={item.thumbnail}
-              key={item.id}
+              id={item.info.videoId}
+              title={item.info.title}
+              img={item.info.thumbnails[2].url}
+              key={item.info.videoId}
             />
           ))
         ) : (
