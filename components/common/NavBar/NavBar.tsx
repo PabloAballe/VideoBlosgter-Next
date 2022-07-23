@@ -352,6 +352,7 @@ export const NavBar = () => {
                 </Link>
               </li>
               <li>
+                <Link href="/live">
                   <a
                     href="#"
                     className={`${
@@ -363,7 +364,8 @@ export const NavBar = () => {
                     </span>
                     <span className="text-sm font-medium">Live</span>
                   </a>
-                </li>
+                </Link>
+              </li>
               {user ? (
                 <div>
                   <div className="divider"></div>
